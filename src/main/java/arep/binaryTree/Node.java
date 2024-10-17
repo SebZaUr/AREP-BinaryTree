@@ -13,6 +13,7 @@ public class Node{
     }
 
     public  void delete(int value){
+        System.out.println(value);
         if(left.data == value){
             left = null;
         }else if(right.data == value){
@@ -21,6 +22,7 @@ public class Node{
     }
 
     public void deleteWithOneSon(int value, Node son){
+        System.out.println(value);
         if(left.data == value){
             left = son;
         }else if(right.data == value){

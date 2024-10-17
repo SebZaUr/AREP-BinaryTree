@@ -13,9 +13,13 @@ public class BinaryTree{
         binaryTree.startTree(8);
         binaryTree.startTree(5);
         binaryTree.startTree(20);
+        binaryTree.startTree(12);
         System.out.println(printTree(root));
         System.out.println(startSearch(6));
         System.out.println(startSearch(1));
+        System.out.println(startDelete(5));
+        System.out.println(findMin(root));
+        System.out.println(findMax(root));
     }
 
     public Node addNode(Node current, int value,Node fatherNode){
@@ -69,6 +73,48 @@ public class BinaryTree{
         }
     }
 
-    
+    public static boolean deleteNode(int value,Node current){
+        if(current == null){
+            return false;
+        }
+        if (value < current.data) {
+            return deleteNode(value,current.left); // Ir al subárbol izquierdo
+        } else if (value > current.data) {
+            return deleteNode(value, current.right); // Ir al subárbol derecho
+        }else if (current.data == value){
+            System.out.println(Integer.toString(value) +"==" +Integer.toString(current.data));
+            if(current.left == null && current.right == null){
+                current.father.delete(value);
+            }else if(current.left == null){
+                current.father.deleteWithOneSon(value, current.right);
+            }else if(current.right == null){
+                current.father.deleteWithOneSon(value, current.left);
+            }
+            return true;
+        }
+        return false; 
+    }
 
+    public static String startDelete(int value){
+        boolean isDelete = deleteNode(value, root);
+        if(isDelete){
+            return "El nodo con el valor " + Integer.toString(value) + " fue eliminado del Arbol";
+        }else{
+            return "El nodo con el valor " + Integer.toString(value) + " no fue fue eliminado del Arbol";
+        }
+    }
+
+    public static String findMin(Node current){
+        while (current.left != null) {
+            current = current.left;
+        }
+        return "El valor minnimo del nodo es: " + Integer.toString(current.data);
+    }
+
+    public static String findMax(Node current){
+        while (current.right != null) {
+            current = current.right;
+        }
+        return "El valor maximo del nodo es: " + Integer.toString(current.data);
+    }
 }
